@@ -9,18 +9,23 @@ export default function App() {
   const [currentWord, setCurrentWord] = useState("react");
   const [guessedWord, setGuessedWord] = useState(new Set());
 
+  var wrongCount = 0;
+  guessedWord.forEach((letter) => {
+    if (!currentWord.includes(letter)) wrongCount++;
+  });
+
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
   const letters = Array.from([...currentWord]);
   const letterElement = letters.map((letter, index) => {
-    return <span key={index}>{letter.toUpperCase()}</span>;
+    const shownLetter = guessedWord.has(letter) ? letter : "";
+    return <span key={index}>{shownLetter.toUpperCase()}</span>;
   });
 
   function onKeyboardClicked(letter) {
     if (guessedWord.has(letter)) return;
     setGuessedWord((prev) => new Set(prev).add(letter));
   }
-  console.log(guessedWord);
 
   const keyboardElement = alphabet.split("").map((letter) => {
     const isGuessed = guessedWord.has(letter);
@@ -44,7 +49,7 @@ export default function App() {
     <>
       <Header />
       <Status statusText="“Farewell HTML & CSS” 🫡 " />
-      <Chips />
+      <Chips wrongCount={wrongCount} />
       <section className="letters-container">{letterElement}</section>
       <section className="keyboard-container">{keyboardElement}</section>
       <button className="new-game-button">New Game</button>
