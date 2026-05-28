@@ -2,6 +2,7 @@ import { useState } from "react";
 import Header from "./components/Header";
 import Status from "./components/Status";
 import Chips from "./components/Chips";
+import { languages } from "./assets/languages";
 import { clsx } from "clsx";
 import "./App.css";
 
@@ -13,6 +14,10 @@ export default function App() {
   guessedWord.forEach((letter) => {
     if (!currentWord.includes(letter)) wrongCount++;
   });
+  const isGamelost = wrongCount >= languages.length ? true : false;
+  const isGameWon = currentWord
+    .split("")
+    .every((letter) => guessedWord.has(letter));
 
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
@@ -21,6 +26,10 @@ export default function App() {
     const shownLetter = guessedWord.has(letter) ? letter : "";
     return <span key={index}>{shownLetter.toUpperCase()}</span>;
   });
+
+  const isLastInputWrong =
+    guessedWord.size > 0 && !currentWord.includes([...guessedWord].at(-1));
+  const deadLanguage = isLastInputWrong ? languages[wrongCount - 1].name : null;
 
   function onKeyboardClicked(letter) {
     if (guessedWord.has(letter)) return;
@@ -35,6 +44,7 @@ export default function App() {
       <button
         key={letter}
         onClick={() => onKeyboardClicked(letter)}
+        disabled={isGameWon || isGamelost}
         className={clsx({
           correct: isCorrect,
           wrong: isWrong,
@@ -48,11 +58,17 @@ export default function App() {
   return (
     <>
       <Header />
-      <Status statusText="“Farewell HTML & CSS” 🫡 " />
+      <Status
+        isGamelost={isGamelost}
+        isGameWon={isGameWon}
+        deadLanguage={deadLanguage}
+      />
       <Chips wrongCount={wrongCount} />
       <section className="letters-container">{letterElement}</section>
       <section className="keyboard-container">{keyboardElement}</section>
-      <button className="new-game-button">New Game</button>
+      {(isGamelost || isGameWon) && (
+        <button className="new-game-button">New Game</button>
+      )}
     </>
   );
 }
