@@ -126,6 +126,14 @@ header > p {
   background-color: #323232;
 }
 
+.letters-container > span.red{
+  color: #EC5D49;
+}
+
+.letters-container > span.green{
+  color: #10A95B;
+}
+
 .keyboard-container {
   display: flex;
   flex-wrap: wrap;

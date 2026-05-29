@@ -3,11 +3,13 @@ import Header from "./components/Header";
 import Status from "./components/Status";
 import Chips from "./components/Chips";
 import { languages } from "./assets/languages";
+import { getRandomWord } from "./assets/utils";
 import { clsx } from "clsx";
+import Confetti from "react-confetti";
 import "./App.css";
 
 export default function App() {
-  const [currentWord, setCurrentWord] = useState("react");
+  const [currentWord, setCurrentWord] = useState(() => getRandomWord());
   const [guessedWord, setGuessedWord] = useState(new Set());
 
   var wrongCount = 0;
@@ -23,8 +25,23 @@ export default function App() {
 
   const letters = Array.from([...currentWord]);
   const letterElement = letters.map((letter, index) => {
-    const shownLetter = guessedWord.has(letter) ? letter : "";
-    return <span key={index}>{shownLetter.toUpperCase()}</span>;
+    if (isGameWon || isGamelost) {
+      const isExisting = guessedWord.has(letter) ? true : false;
+      return (
+        <span
+          key={index}
+          className={clsx(isExisting ? "green" : "red")}
+          // style={{
+          //   color: isExisting ? "green" : "red",
+          // }}
+        >
+          {letter.toUpperCase()}
+        </span>
+      );
+    } else {
+      const shownLetter = guessedWord.has(letter) ? letter : "";
+      return <span key={index}>{shownLetter.toUpperCase()}</span>;
+    }
   });
 
   const isLastInputWrong =
@@ -55,8 +72,14 @@ export default function App() {
     );
   });
 
+  function onSelectNewGame() {
+    setCurrentWord(getRandomWord());
+    setGuessedWord(new Set());
+  }
+
   return (
     <>
+      {isGameWon && <Confetti />}
       <Header />
       <Status
         isGamelost={isGamelost}
@@ -67,7 +90,9 @@ export default function App() {
       <section className="letters-container">{letterElement}</section>
       <section className="keyboard-container">{keyboardElement}</section>
       {(isGamelost || isGameWon) && (
-        <button className="new-game-button">New Game</button>
+        <button className="new-game-button" onClick={onSelectNewGame}>
+          New Game
+        </button>
       )}
     </>
   );
