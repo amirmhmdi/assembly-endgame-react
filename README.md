@@ -1,18 +1,52 @@
-# React + Vite
+# 🎮 Assembly Endgame — React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React implementation of the classic "Assembly Endgame" word-guessing game (Hangman-style), built with **React + Vite**.
 
-Currently, two official plugins are available:
+> This is the original version of the game — also rebuilt in [Flutter using Riverpod](https://github.com/amirmhmdi/assembly-endgame-flutter) as a cross-platform comparison and state-management exercise.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+🔗 **[Live Demo](https://amirmhmdi.github.io/assembly-endgame-react/)**
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- **Word guessing gameplay** — guess letters to reveal a hidden word before running out of attempts
+- **Hangman-style progression** — incorrect guesses are tracked visually, raising the stakes with each wrong answer
+- **Programming language theme** — each wrong guess "eliminates" a programming language, complete with farewell messages
+- **Win / lose / playing states** — clear UI feedback for every outcome
+- **Responsive design** — works smoothly across screen sizes
 
-Note: This will impact Vite dev & build performances.
+## 🛠 Tech Stack
 
-## Expanding the ESLint configuration
+- **React**
+- **Vite** for fast development and builds
+- **ESLint** for code quality
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🚀 Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (LTS recommended)
+- npm
+
+### Installation
+
+```bash
+git clone https://github.com/amirmhmdi/assembly-endgame-react.git
+cd assembly-endgame-react
+npm install
+```
+
+### Run the app
+
+```bash
+npm run dev
+```
+
+### Build for production
+
+```bash
+npm run build
+```
+
+## 🔗 Related Project
+
+Check out the [Flutter + Riverpod version of this game](https://github.com/amirmhmdi/assembly-endgame-flutter) — same game logic, rebuilt as a cross-platform mobile/desktop app.
